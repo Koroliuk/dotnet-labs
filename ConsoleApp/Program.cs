@@ -16,9 +16,11 @@ namespace ConsoleApp
                 "Bob"
             };
             
-            list1.Addition += DisplayMessage;
-            list1.Deletion += DisplayMessage;
-            list1.Clearing += DisplayMessage;
+            list1.Addition +=  (sender, circularEventArgs) => 
+                Console.WriteLine($"List {sender.GetHashCode()}, item {circularEventArgs.Item}. {circularEventArgs.Message}"); 
+            list1.Deletion +=  (sender, circularEventArgs) => 
+                Console.WriteLine($"List {sender.GetType()}, item {circularEventArgs.Item}. {circularEventArgs.Message}"); 
+            list1.Clearing += (sender, circularEventArgs) => Console.WriteLine(circularEventArgs.Message);
             
             Console.WriteLine(string.Concat(Enumerable.Repeat("-", 80)));
             Console.WriteLine("Our initial list: {"+string.Join(", ", list1)+"}");
@@ -101,10 +103,6 @@ namespace ConsoleApp
             Console.Write(list2.First);
             Console.Write(list2.Last);
             
-        }
-        private static void DisplayMessage(string message)
-        {
-            Console.WriteLine(message);
         }
     }
 }

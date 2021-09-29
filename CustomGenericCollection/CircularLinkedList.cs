@@ -13,36 +13,35 @@ namespace CustomGenericCollection
     {
         private Node<T> _head;
         private Node<T> _tail;
+        
+        /// <summary>
+        /// This delegate handles events for adding and removing elements 
+        /// </summary>
+        /// <param name="sender">Instance of <see cref="CircularLinkedList{T}"/> that called the event</param>
+        /// <param name="args">Arguments passed by sender for subscribers</param>
+        public delegate void CircularListEventHandler(object sender, CircularEventArgs<T> args);
 
         /// <summary>
-        /// Addition event delegate.
+        /// This delegate handles events for clearing the list 
         /// </summary>
-        public delegate void AdditionHandler(string message);
-
+        /// <param name="sender">Instance of <see cref="CircularLinkedList{T}"/> that called the event</param>
+        /// <param name="args">Arguments passed by sender for subscribers</param>
+        public delegate void CircularListClearingEventHandler(object sender, MessageEventArgs args);
+        
         /// <summary>
         /// Event of adding an element to the collection.
         /// </summary>
-        public event AdditionHandler Addition;
-
-        /// <summary>
-        /// Deletion event delegate.
-        /// </summary>
-        public delegate void DeletionHandler(string message);
-
+        public event CircularListEventHandler Addition;
+        
         /// <summary>
         /// Event of deletion an element from the collection.
         /// </summary>
-        public event DeletionHandler Deletion;
-
-        /// <summary>
-        /// Clearing event delegate.
-        /// </summary>
-        public delegate void ClearingHandler(string message);
-
+        public event CircularListEventHandler Deletion;
+        
         /// <summary>
         /// Collection cleaning event.
         /// </summary>
-        public event ClearingHandler Clearing;
+        public event CircularListClearingEventHandler Clearing;
 
         /// <summary>
         /// This indexer get or set data at some position of the list. 
@@ -96,7 +95,7 @@ namespace CustomGenericCollection
             }
 
             Count++;
-            Addition?.Invoke($"Added element: {item}");
+            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item}"));
         }
 
         /// <summary>
@@ -141,8 +140,8 @@ namespace CustomGenericCollection
                 _head.Prev = node;
                 _head = node;
             }
-
-            Addition?.Invoke($"Added element: {item} at the beginning of the list");
+            
+            Addition?.Invoke(this, new CircularEventArgs<T>(item ,$"Added element: {item} at the beginning of the list"));
             Count++;
         }
         
@@ -169,7 +168,7 @@ namespace CustomGenericCollection
                 _tail = node;
             }
 
-            Addition?.Invoke($"Added element: {item} at the end of the list");
+            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} at the end of the list"));
             Count++;
         }
         
@@ -199,7 +198,7 @@ namespace CustomGenericCollection
                 _head = node;
             }
 
-            Addition?.Invoke($"Added element: {item} before element: {node.Item}");
+            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
             Count++;
         }
 
@@ -229,7 +228,7 @@ namespace CustomGenericCollection
                 _tail = node;
             }
 
-            Addition?.Invoke($"Added element: {item} before element: {node.Item}");
+            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
             Count++;
         }
 
@@ -241,7 +240,7 @@ namespace CustomGenericCollection
             _head = null;
             _tail = null;
             Count = 0;
-            Clearing?.Invoke("The collection was cleared");
+            Clearing?.Invoke(this, new MessageEventArgs("The collection was cleared"));
         }
 
         /// <summary>
@@ -428,7 +427,7 @@ namespace CustomGenericCollection
                 node.Prev.Next = newNode;
                 node.Prev = newNode;
                 Count++;
-                Addition?.Invoke($"Inserted element: {item} at the index: {index}");
+                Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Inserted element: {item} at the index: {index}"));
             }
         }
 
@@ -583,7 +582,7 @@ namespace CustomGenericCollection
         {
             if (_head == null)
             {
-                Deletion?.Invoke("The list is empty");
+                Deletion?.Invoke(this, new CircularEventArgs<T>(item, "The list is empty"));
                 return false;
             }
 
@@ -594,7 +593,7 @@ namespace CustomGenericCollection
                 {
                     current.Prev.Next = current.Next;
                     current.Next.Prev = current.Prev;
-                    Deletion?.Invoke($"First occurrence of element: {item} is deleted");
+                    Deletion?.Invoke(this, new CircularEventArgs<T>(item,$"First occurrence of element: {item} is deleted"));
                     Count--;
                     return true;
                 }
@@ -602,7 +601,7 @@ namespace CustomGenericCollection
                 current = current.Next;
             } while (current != _head);
 
-            Deletion?.Invoke($"There is no a such {item} in list");
+            Deletion?.Invoke(this, new CircularEventArgs<T>(item,$"There is no a such {item} in list"));
             return false;
         }
 
@@ -613,15 +612,16 @@ namespace CustomGenericCollection
         {
             if (_head == null)
             {
-                Deletion?.Invoke("The list is empty");
+                Deletion?.Invoke(this, new CircularEventArgs<T>(default,"The list is empty"));
                 return;
             }
 
+            var deleted = _head;
             _head = _head.Next;
             _tail.Next = _head;
             _head.Prev = _tail;
             Count--;
-            Deletion?.Invoke("First element is deleted");
+            Deletion?.Invoke(this, new CircularEventArgs<T>(deleted.Item,"First element is deleted"));
         }
 
         /// <summary>
@@ -631,15 +631,16 @@ namespace CustomGenericCollection
         {
             if (_tail == null)
             {
-                Deletion?.Invoke("The list is empty");
+                Deletion?.Invoke(this, new CircularEventArgs<T>(default,"The list is empty"));
                 return;
             }
 
+            var deleted = _tail;
             _tail = _tail.Prev;
             _head.Prev = _tail;
             _tail.Next = _head;
             Count--;
-            Deletion?.Invoke("Last element is deleted");
+            Deletion?.Invoke(this, new CircularEventArgs<T>(deleted.Item,"Last element is deleted"));
         }
 
         /// <summary>
@@ -656,7 +657,7 @@ namespace CustomGenericCollection
 
             if (_head == null)
             {
-                Deletion?.Invoke("The list is empty");
+                Deletion?.Invoke(this, new CircularEventArgs<T>(default,"The list is empty"));
                 return;
             }
 
@@ -674,7 +675,7 @@ namespace CustomGenericCollection
             node.Prev.Next = node.Next;
             node.Next.Prev = node.Prev;
             Count--;
-            Deletion?.Invoke($"Element at index: {index} is deleted");
+            Deletion?.Invoke(this, new CircularEventArgs<T>(node.Item,$"Element at index: {index} is deleted"));
         }
 
         /// <summary>
@@ -775,7 +776,7 @@ namespace CustomGenericCollection
             }
         
             /// <summary>
-            /// Advances the enumerator to the next element of the CircularLinkedList<TItem>.
+            /// Advances the enumerator to the next element of the <see cref="CircularLinkedList{TItem}"/>.
             /// </summary>
             /// <returns>true if the enumerator was successfully advanced to the next element; false if the enumerator
             /// has passed the end of the collection</returns>
