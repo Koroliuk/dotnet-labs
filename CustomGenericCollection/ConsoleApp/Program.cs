@@ -15,7 +15,9 @@ namespace ConsoleApp
                 "Tom",
                 "Bob"
             };
-            
+
+            CircularLinkedList<int> l = new CircularLinkedList<int>(new[] {1, 2, 3});
+
             list1.Addition +=  (sender, circularEventArgs) => 
                 Console.WriteLine($"List {sender.GetHashCode()}, item {circularEventArgs.Item}. {circularEventArgs.Message}"); 
             list1.Deletion +=  (sender, circularEventArgs) => 

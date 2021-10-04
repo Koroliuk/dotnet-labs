@@ -13,7 +13,21 @@ namespace CustomGenericCollection
     {
         private Node<T> _head;
         private Node<T> _tail;
-        
+
+        public CircularLinkedList()
+        {
+        }
+
+        public CircularLinkedList(IEnumerable<T> collection)
+        {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof (collection));
+            }
+            foreach (var obj in collection)
+                AddLast(obj);
+        }
+
         /// <summary>
         /// This delegate handles events for adding and removing elements 
         /// </summary>
