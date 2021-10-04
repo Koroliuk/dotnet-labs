@@ -95,7 +95,7 @@ namespace CustomGenericCollection
             }
 
             Count++;
-            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item}"));
+            OnAdditionEvent(new CircularEventArgs<T>(item, $"Added element: {item}"));
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace CustomGenericCollection
             }
             
             Count++;
-            Addition?.Invoke(this, new CircularEventArgs<T>(item ,$"Added element: {item} at the beginning of the list"));
+            OnAdditionEvent(new CircularEventArgs<T>(item ,$"Added element: {item} at the beginning of the list"));
         }
         
         /// <summary>
@@ -169,7 +169,7 @@ namespace CustomGenericCollection
             }
 
             Count++;
-            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} at the end of the list"));
+            OnAdditionEvent(new CircularEventArgs<T>(item, $"Added element: {item} at the end of the list"));
         }
         
         /// <summary>
@@ -203,7 +203,7 @@ namespace CustomGenericCollection
             node.Prev = newNode;
             
             Count++;
-            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
+            OnAdditionEvent(new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
         }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace CustomGenericCollection
             }
 
             Count++;
-            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
+            OnAdditionEvent(new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace CustomGenericCollection
             _head = null;
             _tail = null;
             Count = 0;
-            Clearing?.Invoke(this, new MessageEventArgs("The collection was cleared"));
+            OnClearingEvent(new MessageEventArgs("The collection was cleared"));
         }
 
         /// <summary>
@@ -439,7 +439,7 @@ namespace CustomGenericCollection
                 node.Prev.Next = newNode;
                 node.Prev = newNode;
                 Count++;
-                Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Inserted element: {item} at the index: {index}"));
+                OnAdditionEvent(new CircularEventArgs<T>(item, $"Inserted element: {item} at the index: {index}"));
             }
         }
 
@@ -594,7 +594,7 @@ namespace CustomGenericCollection
         {
             if (_head == null)
             {
-                Deletion?.Invoke(this, new CircularEventArgs<T>(item, "The list is empty"));
+                OnDeletionEvent(new CircularEventArgs<T>(item, "The list is empty"));
                 return false;
             }
 
@@ -615,14 +615,14 @@ namespace CustomGenericCollection
                     current.Prev.Next = current.Next;
                     current.Next.Prev = current.Prev;
                     Count--;
-                    Deletion?.Invoke(this, new CircularEventArgs<T>(item,$"First occurrence of element: {item} is deleted"));
+                    OnDeletionEvent(new CircularEventArgs<T>(item,$"First occurrence of element: {item} is deleted"));
                     return true;
                 }
 
                 current = current.Next;
             } while (current != _head);
 
-            Deletion?.Invoke(this, new CircularEventArgs<T>(item,$"There is no a such {item} in list"));
+            OnDeletionEvent(new CircularEventArgs<T>(item,$"There is no a such {item} in list"));
             return false;
         }
 
@@ -633,7 +633,7 @@ namespace CustomGenericCollection
         {
             if (_head == null)
             {
-                Deletion?.Invoke(this, new CircularEventArgs<T>(default,"The list is empty"));
+                OnDeletionEvent(new CircularEventArgs<T>(default,"The list is empty"));
                 return;
             }
 
@@ -642,7 +642,7 @@ namespace CustomGenericCollection
             _tail.Next = _head;
             _head.Prev = _tail;
             Count--;
-            Deletion?.Invoke(this, new CircularEventArgs<T>(deleted.Item,"First element is deleted"));
+            OnDeletionEvent(new CircularEventArgs<T>(deleted.Item,"First element is deleted"));
         }
 
         /// <summary>
@@ -652,7 +652,7 @@ namespace CustomGenericCollection
         {
             if (_tail == null)
             {
-                Deletion?.Invoke(this, new CircularEventArgs<T>(default,"The list is empty"));
+                OnDeletionEvent(new CircularEventArgs<T>(default,"The list is empty"));
                 return;
             }
 
@@ -661,7 +661,7 @@ namespace CustomGenericCollection
             _head.Prev = _tail;
             _tail.Next = _head;
             Count--;
-            Deletion?.Invoke(this, new CircularEventArgs<T>(deleted.Item,"Last element is deleted"));
+            OnDeletionEvent(new CircularEventArgs<T>(deleted.Item,"Last element is deleted"));
         }
 
         /// <summary>
@@ -678,7 +678,7 @@ namespace CustomGenericCollection
 
             if (_head == null)
             {
-                Deletion?.Invoke(this, new CircularEventArgs<T>(default,"The list is empty"));
+                OnDeletionEvent(new CircularEventArgs<T>(default,"The list is empty"));
                 return;
             }
 
@@ -696,7 +696,7 @@ namespace CustomGenericCollection
             node.Prev.Next = node.Next;
             node.Next.Prev = node.Prev;
             Count--;
-            Deletion?.Invoke(this, new CircularEventArgs<T>(node.Item,$"Element at index: {index} is deleted"));
+            OnDeletionEvent(new CircularEventArgs<T>(node.Item,$"Element at index: {index} is deleted"));
         }
 
         /// <summary>
@@ -722,6 +722,33 @@ namespace CustomGenericCollection
                 RemoveAt(index);
                 count--;
             }
+        }
+
+        /// <summary>
+        /// The method that invokes an addition event
+        /// </summary>
+        /// <param name="circularEventArgs">Arguments of event</param>
+        protected void OnAdditionEvent(CircularEventArgs<T> circularEventArgs)
+        {
+            Addition?.Invoke(this, circularEventArgs);
+        }
+        
+        /// <summary>
+        /// The method that invokes an deletion event
+        /// </summary>
+        /// <param name="circularEventArgs">Arguments of event</param>
+        protected void OnDeletionEvent(CircularEventArgs<T> circularEventArgs)
+        {
+            Deletion?.Invoke(this, circularEventArgs);
+        }
+        
+        /// <summary>
+        /// The method that invokes an clearing event
+        /// </summary>
+        /// <param name="messageEventArgs">Arguments of event</param>
+        protected void OnClearingEvent(MessageEventArgs messageEventArgs)
+        {
+            Clearing?.Invoke(this, messageEventArgs);
         }
 
         /// <summary>
