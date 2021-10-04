@@ -13,7 +13,7 @@ namespace CustomGenericCollection
     {
         private Node<T> _head;
         private Node<T> _tail;
-
+        
         public CircularLinkedList()
         {
         }
@@ -24,8 +24,8 @@ namespace CustomGenericCollection
             {
                 throw new ArgumentNullException(nameof (collection));
             }
-            foreach (var obj in collection)
-                AddLast(obj);
+            foreach (var elem in collection)
+                AddLast(elem);
         }
 
         /// <summary>
