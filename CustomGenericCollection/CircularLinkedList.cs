@@ -9,7 +9,7 @@ namespace CustomGenericCollection
     /// The class that implements a circular linked list.
     /// </summary>
     /// <typeparam name="T">The class of list elements</typeparam>
-    public class CircularLinkedList<T> : ICollection<T>
+    public class CircularLinkedList<T> : IList<T>
     {
         private Node<T> _head;
         private Node<T> _tail;
@@ -141,8 +141,8 @@ namespace CustomGenericCollection
                 _head = node;
             }
             
-            Addition?.Invoke(this, new CircularEventArgs<T>(item ,$"Added element: {item} at the beginning of the list"));
             Count++;
+            Addition?.Invoke(this, new CircularEventArgs<T>(item ,$"Added element: {item} at the beginning of the list"));
         }
         
         /// <summary>
@@ -168,8 +168,8 @@ namespace CustomGenericCollection
                 _tail = node;
             }
 
-            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} at the end of the list"));
             Count++;
+            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} at the end of the list"));
         }
         
         /// <summary>
@@ -191,15 +191,19 @@ namespace CustomGenericCollection
                 Next = node,
                 Prev = node.Prev
             };
-            node.Prev.Next = newNode;
-            node.Prev = newNode;
+            if (node == _head.Next)
+            {
+                _head = newNode;
+            }
             if (node == _head)
             {
-                _head = node;
+                _tail = newNode;
             }
-
-            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
+            node.Prev.Next = newNode;
+            node.Prev = newNode;
+            
             Count++;
+            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
         }
 
         /// <summary>
@@ -221,6 +225,14 @@ namespace CustomGenericCollection
                 Next = node.Next,
                 Prev = node
             };
+            if (node == _tail)
+            {
+                _head = newNode;
+            }
+            if (node == _tail.Prev)
+            {
+                _tail = newNode;
+            }
             node.Next = newNode;
             node.Next.Prev = newNode;
             if (node == _tail)
@@ -228,8 +240,8 @@ namespace CustomGenericCollection
                 _tail = node;
             }
 
-            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
             Count++;
+            Addition?.Invoke(this, new CircularEventArgs<T>(item, $"Added element: {item} before element: {node.Item}"));
         }
 
         /// <summary>
@@ -591,10 +603,19 @@ namespace CustomGenericCollection
             {
                 if (current.Item.Equals(item))
                 {
+                    if (current == _head)
+                    {
+                        _head = current.Next;
+                    }
+
+                    if (current == _tail)
+                    {
+                        _tail = current.Prev;
+                    }
                     current.Prev.Next = current.Next;
                     current.Next.Prev = current.Prev;
-                    Deletion?.Invoke(this, new CircularEventArgs<T>(item,$"First occurrence of element: {item} is deleted"));
                     Count--;
+                    Deletion?.Invoke(this, new CircularEventArgs<T>(item,$"First occurrence of element: {item} is deleted"));
                     return true;
                 }
 
