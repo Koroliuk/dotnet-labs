@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomGenericCollection", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{11CE7635-4495-429C-9723-8C198E63682C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerGenericCollection", "CustomerGenericCollection\CustomerGenericCollection.csproj", "{B3E9B4D7-7465-45FE-A7BA-D61911A1E4F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomGenericCollection.Test", "CustomGenericCollection.Test\CustomGenericCollection.Test.csproj", "{B3E9B4D7-7465-45FE-A7BA-D61911A1E4F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
