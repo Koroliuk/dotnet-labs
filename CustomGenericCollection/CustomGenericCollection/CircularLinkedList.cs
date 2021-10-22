@@ -297,16 +297,11 @@ namespace CustomGenericCollection
                 throw new ArgumentNullException(nameof(array), "Given array is null");
             }
 
-            if (arrayIndex < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(arrayIndex), "Given index of array is less than zero");
-            }
-
-            if (arrayIndex > array.Length - 1)
+            if (arrayIndex < 0 || arrayIndex > array.Length - 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex), "Given index of array is out of range");
             }
-
+            
             if (array.Length - arrayIndex < Count)
             {
                 throw new ArgumentException("Given index of array is out of possible range, so array can not " +
@@ -700,17 +695,18 @@ namespace CustomGenericCollection
             {
                 RemoveFirst();
             }
-
-            if (index == Count - 1)
+            else if (index == Count - 1)
             {
                 RemoveLast();
             }
-
-            var node = NodeAt(index);
-            node.Prev.Next = node.Next;
-            node.Next.Prev = node.Prev;
-            Count--;
-            OnDeletionEvent(new CircularEventArgs<T>(node.Item,$"Element at index: {index} is deleted"));
+            else
+            {
+                var node = NodeAt(index);
+                node.Prev.Next = node.Next;
+                node.Next.Prev = node.Prev;
+                Count--;
+                OnDeletionEvent(new CircularEventArgs<T>(node.Item,$"Element at index: {index} is deleted"));
+            }
         }
 
         /// <summary>
