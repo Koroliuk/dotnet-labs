@@ -588,5 +588,20 @@ namespace CustomerGenericCollection
 
             Assert.Throws<ArgumentException>(() => circularList.RemoveRange(index, count));
         }
+
+        [Test]
+        public void GetEnumerator_List_ReturnsCorrectList()
+        {
+            var expected = new CircularLinkedList<int>(new[] {12, 32, 3, 21, 44});
+            var enumerator = expected.GetEnumerator();
+            var actual = new CircularLinkedList<int>();
+            
+            while (enumerator.MoveNext())
+            {
+                actual.Add(enumerator.Current);
+            }
+            
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }
