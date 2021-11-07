@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.DAL", "Hotel.DAL\Hotel.DAL.csproj", "{F272E0F5-9FB2-4C71-9222-172586C4FA2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{2B734E41-9AC9-416D-AE61-C4D064C0EF77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F272E0F5-9FB2-4C71-9222-172586C4FA2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F272E0F5-9FB2-4C71-9222-172586C4FA2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F272E0F5-9FB2-4C71-9222-172586C4FA2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F272E0F5-9FB2-4C71-9222-172586C4FA2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B734E41-9AC9-416D-AE61-C4D064C0EF77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B734E41-9AC9-416D-AE61-C4D064C0EF77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B734E41-9AC9-416D-AE61-C4D064C0EF77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B734E41-9AC9-416D-AE61-C4D064C0EF77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
