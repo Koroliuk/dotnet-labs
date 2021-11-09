@@ -19,7 +19,7 @@ namespace Hotel.DAL.Repositories
             _context = new HotelContext();
         }
 
-        public IRepository<User> Users
+        public IUserRepository Users
         {
             get { return _userRepository ??= new UserRepository(_context); }
         }

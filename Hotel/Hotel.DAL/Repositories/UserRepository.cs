@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.DAL.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository
     {
         private readonly HotelContext _context;
 
@@ -26,7 +26,7 @@ namespace Hotel.DAL.Repositories
         {
             return _context.Users.Find(id);
         }
-
+        
         public IEnumerable<User> Find(Func<User, bool> predicate)
         {
             return _context.Users.Where(predicate).ToList();
@@ -35,7 +35,6 @@ namespace Hotel.DAL.Repositories
         public void Create(User item)
         {
             _context.Users.Add(item);
-            _context.SaveChanges();
         }
 
         public void Update(User item)
@@ -50,6 +49,11 @@ namespace Hotel.DAL.Repositories
             {
                 _context.Users.Remove(user);
             }
+        }
+
+        public User FindByLogin(string login)
+        {
+            return _context.Users.Find(login);
         }
     }
 }
