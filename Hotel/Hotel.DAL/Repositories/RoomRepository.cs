@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.DAL.Repositories
 {
-    public class RoomRepository : IRepository<Room>
+    public class RoomRepository : IRoomRepository
     {
         private readonly HotelContext _context;
 
@@ -49,6 +49,11 @@ namespace Hotel.DAL.Repositories
             {
                 _context.Rooms.Remove(room);
             }
+        }
+
+        public Room FindById(int id)
+        {
+            return _context.Rooms.Find(id);
         }
     }
 }

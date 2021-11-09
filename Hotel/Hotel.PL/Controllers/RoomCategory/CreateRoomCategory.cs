@@ -50,7 +50,7 @@ namespace Hotel.PL.Controllers.RoomCategory
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input...");
+                    throw new ArgumentException();
                 }
             }
             catch (HotelException e)
