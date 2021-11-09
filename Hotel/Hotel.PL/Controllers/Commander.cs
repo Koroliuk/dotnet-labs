@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Hotel.BLL.interfaces;
 using Hotel.BLL.Utils;
+using Hotel.PL.Controllers.Room;
 using Hotel.PL.Controllers.RoomCategory;
 using Hotel.PL.Controllers.User;
 
@@ -15,6 +16,8 @@ namespace Hotel.PL.Controllers
 
         private static readonly IRoomCategoryService RoomCategoryService =
             DependencyProvider.GetDependency<IRoomCategoryService>();
+
+        private static readonly IRoomService RoomService = DependencyProvider.GetDependency<IRoomService>();
 
         public static void Execute()
         {
@@ -52,7 +55,10 @@ namespace Hotel.PL.Controllers
                 {"signup", new SignUp(UserService)},
                 {"create room category", new CreateRoomCategory(RoomCategoryService, UserService)},
                 {"edit room category", new EditRoomCategory(RoomCategoryService, UserService)},
-                {"delete room category", new DeleteRoomCategory(RoomCategoryService, UserService)}
+                {"delete room category", new DeleteRoomCategory(RoomCategoryService, UserService)},
+                {"create room", new CreateRoom(UserService, RoomService)},
+                {"edit room", new EditRoom(UserService, RoomService)},
+                {"delete room", new DeleteRoom(UserService, RoomService)}
             };
         }
     }

@@ -56,16 +56,16 @@ namespace Hotel.PL.Controllers.RoomCategory
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input...");
+                    throw new ArgumentException();
                 }
             }
             catch (HotelException e)
             {
                 Console.WriteLine(e.Message);
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Invalid input...");
             }
         }
     }

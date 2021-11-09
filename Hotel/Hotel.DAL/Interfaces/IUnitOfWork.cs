@@ -7,7 +7,7 @@ namespace Hotel.DAL.Interfaces
     {
         IUserRepository Users { get; }
         IRepository<Order> Orders { get; }
-        IRepository<Room> Rooms { get; }
+        IRoomRepository Rooms { get; }
         IRoomCategoryRepository RoomCategories { get; }
         void Save();
     }

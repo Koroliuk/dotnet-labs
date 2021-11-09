@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.BLL", "Hotel.BLL\Hote
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.PL", "Hotel.PL\Hotel.PL.csproj", "{DF8BFD39-97EA-4156-B5E9-A0659292B8FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.Tests", "Hotel.Tests\Hotel.Tests.csproj", "{8103B6DF-9841-4BC1-9A4E-2CB3B5F7853D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{DF8BFD39-97EA-4156-B5E9-A0659292B8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF8BFD39-97EA-4156-B5E9-A0659292B8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF8BFD39-97EA-4156-B5E9-A0659292B8FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8103B6DF-9841-4BC1-9A4E-2CB3B5F7853D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8103B6DF-9841-4BC1-9A4E-2CB3B5F7853D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8103B6DF-9841-4BC1-9A4E-2CB3B5F7853D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8103B6DF-9841-4BC1-9A4E-2CB3B5F7853D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
