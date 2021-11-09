@@ -8,6 +8,8 @@ namespace Hotel.DAL.Entities
         [Key]
         public string Login { get; set; }
         public string PasswordHash { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        
+        #nullable enable
+        public ICollection<Order>? Orders { get; set; }
     }
 }

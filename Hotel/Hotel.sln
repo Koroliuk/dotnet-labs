@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.DAL", "Hotel.DAL\Hote
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{2B734E41-9AC9-416D-AE61-C4D064C0EF77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.BLL", "Hotel.BLL\Hotel.BLL.csproj", "{F34B71F4-8954-42FD-A902-900191E13C50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotel.PL", "Hotel.PL\Hotel.PL.csproj", "{DF8BFD39-97EA-4156-B5E9-A0659292B8FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{2B734E41-9AC9-416D-AE61-C4D064C0EF77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B734E41-9AC9-416D-AE61-C4D064C0EF77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B734E41-9AC9-416D-AE61-C4D064C0EF77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34B71F4-8954-42FD-A902-900191E13C50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34B71F4-8954-42FD-A902-900191E13C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34B71F4-8954-42FD-A902-900191E13C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34B71F4-8954-42FD-A902-900191E13C50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF8BFD39-97EA-4156-B5E9-A0659292B8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF8BFD39-97EA-4156-B5E9-A0659292B8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF8BFD39-97EA-4156-B5E9-A0659292B8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF8BFD39-97EA-4156-B5E9-A0659292B8FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

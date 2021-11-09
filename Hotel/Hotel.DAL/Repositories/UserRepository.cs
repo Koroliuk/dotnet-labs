@@ -35,6 +35,7 @@ namespace Hotel.DAL.Repositories
         public void Create(User item)
         {
             _context.Users.Add(item);
+            _context.SaveChanges();
         }
 
         public void Update(User item)
