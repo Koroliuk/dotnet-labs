@@ -26,7 +26,7 @@ namespace Hotel.DAL.Repositories
         {
             return _context.Users.Find(id);
         }
-        
+
         public IEnumerable<User> Find(Func<User, bool> predicate)
         {
             return _context.Users.Where(predicate).ToList();

@@ -8,12 +8,12 @@ namespace Hotel.PL.Controllers.User
     public class SignUp : Command
     {
         private readonly IUserService _userService;
-        
+
         public SignUp(IUserService userService) : base(userService)
         {
             _userService = userService;
         }
-        
+
         public override void Execute()
         {
             Console.Write("Enter a login: ");
@@ -22,7 +22,7 @@ namespace Hotel.PL.Controllers.User
             var password = Console.ReadLine();
             Console.Write("Enter an user role (User or Admin): ");
             var role = Console.ReadLine();
-            
+
             if (login != null && !login.Equals(string.Empty) &&
                 password != null && !password.Equals(string.Empty) &&
                 role != null && !role.Equals(string.Empty))

@@ -12,6 +12,7 @@ namespace Hotel.PL.Controllers
         private static Dictionary<string, Command> Commands { get; set; }
 
         private static readonly IUserService UserService = DependencyProvider.GetDependency<IUserService>();
+
         private static readonly IRoomCategoryService RoomCategoryService =
             DependencyProvider.GetDependency<IRoomCategoryService>();
 

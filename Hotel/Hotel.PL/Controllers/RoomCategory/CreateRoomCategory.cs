@@ -21,16 +21,16 @@ namespace Hotel.PL.Controllers.RoomCategory
             try
             {
                 AuthorizeAsAdmin();
-                
+
                 Console.Write("Enter a category name: ");
                 var name = Console.ReadLine();
                 Console.Write("Enter a price per day: ");
                 var pricePerDayString = Console.ReadLine();
                 Console.Write("Enter a capacity: ");
                 var capacityString = Console.ReadLine();
-                Console.Write("Enter a description: "); 
+                Console.Write("Enter a description: ");
                 var description = Console.ReadLine();
-                
+
                 if (name != null && !name.Equals(string.Empty) &&
                     pricePerDayString != null && !pricePerDayString.Equals(string.Empty) &&
                     capacityString != null && !capacityString.Equals(string.Empty) && description != null)

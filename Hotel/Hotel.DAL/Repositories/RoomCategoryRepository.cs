@@ -52,7 +52,7 @@ namespace Hotel.DAL.Repositories
                     _context.RoomCategories.Remove(roomCategory);
                 }
             }
-            
+
             public RoomCategory FindById(int id)
             {
                 return _context.RoomCategories.Find(id);

@@ -14,7 +14,7 @@ namespace Hotel.PL.Controllers.RoomCategory
             _roomCategoryService = roomCategoryService;
         }
 
-       public override void Execute()
+        public override void Execute()
         {
             try
             {
@@ -25,9 +25,9 @@ namespace Hotel.PL.Controllers.RoomCategory
                 var isCategoryExists = _roomCategoryService.IsExistById(categoryId);
                 if (!isCategoryExists)
                 {
-                    throw new HotelException("There is no room category with id = "+categoryId);
+                    throw new HotelException("There is no room category with id = " + categoryId);
                 }
-                
+
                 Console.Write("Enter a new category name: ");
                 var name = Console.ReadLine();
                 Console.Write("Enter a new price per day: ");
@@ -36,7 +36,7 @@ namespace Hotel.PL.Controllers.RoomCategory
                 var capacityString = Console.ReadLine();
                 Console.Write("Enter a new description: ");
                 var description = Console.ReadLine();
-                
+
                 if (name != null && !name.Equals(string.Empty) &&
                     pricePerDayString != null && !pricePerDayString.Equals(string.Empty) &&
                     capacityString != null && !capacityString.Equals(string.Empty) && description != null)

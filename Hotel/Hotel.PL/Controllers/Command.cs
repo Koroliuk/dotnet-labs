@@ -13,7 +13,7 @@ namespace Hotel.PL.Controllers
         {
             _userService = userService;
         }
-        
+
         public abstract void Execute();
 
         protected void Authorize()
@@ -36,6 +36,7 @@ namespace Hotel.PL.Controllers
                 throw new HotelException("Invalid credentials");
             }
         }
+
         protected void AuthorizeAsAdmin()
         {
             Console.Write("Enter a login: ");

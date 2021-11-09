@@ -26,11 +26,10 @@ namespace Hotel.PL.Controllers.RoomCategory
                 var isCategoryExists = _roomCategoryService.IsExistById(categoryId);
                 if (!isCategoryExists)
                 {
-                    throw new HotelException("There is no room category with id = "+categoryId);
+                    throw new HotelException("There is no room category with id = " + categoryId);
                 }
 
                 _roomCategoryService.DeleteById(categoryId);
-
             }
             catch (HotelException e)
             {

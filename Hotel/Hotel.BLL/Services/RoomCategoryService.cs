@@ -45,7 +45,7 @@ namespace Hotel.BLL.Services
             roomCategory.PricePerDay = roomCategoryDto.PricePerDay;
             roomCategory.Capacity = roomCategoryDto.Capacity;
             roomCategory.Description = roomCategoryDto.Description;
-            
+
             _unitOfWork.RoomCategories.Update(roomCategory);
             _unitOfWork.Save();
         }

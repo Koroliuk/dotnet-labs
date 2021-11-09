@@ -21,7 +21,7 @@ namespace Hotel.BLL.Services
             {
                 throw new HotelException("Invalid user role");
             }
-            
+
             if (IsExistByLogin(userDto.Login))
             {
                 throw new HotelException("User with a such login is already exists");

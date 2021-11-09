@@ -20,7 +20,7 @@ namespace Hotel.BLL.Utils
 
             _provider = container.BuildServiceProvider();
         }
-        
+
         public static T GetDependency<T>()
         {
             return _provider.GetService<T>();

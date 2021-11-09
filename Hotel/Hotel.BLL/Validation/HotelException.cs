@@ -3,15 +3,18 @@ using System.Runtime.Serialization;
 
 namespace Hotel.BLL.Validation
 {
-
     [Serializable]
     public class HotelException : Exception
     {
         public string Property { get; protected set; }
 
-        public HotelException() { }
+        public HotelException()
+        {
+        }
 
-        public HotelException(string message) : base(message) { }
+        public HotelException(string message) : base(message)
+        {
+        }
 
         public HotelException(string message, string prop) : base(message)
         {
@@ -19,6 +22,8 @@ namespace Hotel.BLL.Validation
         }
 
         protected HotelException(SerializationInfo info, StreamingContext context)
-            : base(info, context) { }
+            : base(info, context)
+        {
+        }
     }
 }
