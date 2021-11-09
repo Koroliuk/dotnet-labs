@@ -23,8 +23,36 @@ namespace Hotel.BLL.Services
                 Capacity = roomCategoryDto.Capacity,
                 Description = roomCategoryDto.Description
             };
-            
+
             _unitOfWork.RoomCategories.Create(roomCategory);
+            _unitOfWork.Save();
+        }
+
+        public RoomCategory FindById(int id)
+        {
+            return _unitOfWork.RoomCategories.FindById(id);
+        }
+
+        public bool IsExistById(int id)
+        {
+            return FindById(id) != null;
+        }
+
+        public void Update(int categoryId, RoomCategoryDto roomCategoryDto)
+        {
+            var roomCategory = FindById(categoryId);
+            roomCategory.Name = roomCategoryDto.Name;
+            roomCategory.PricePerDay = roomCategoryDto.PricePerDay;
+            roomCategory.Capacity = roomCategoryDto.Capacity;
+            roomCategory.Description = roomCategoryDto.Description;
+            
+            _unitOfWork.RoomCategories.Update(roomCategory);
+            _unitOfWork.Save();
+        }
+
+        public void DeleteById(int id)
+        {
+            _unitOfWork.RoomCategories.Delete(id);
             _unitOfWork.Save();
         }
     }

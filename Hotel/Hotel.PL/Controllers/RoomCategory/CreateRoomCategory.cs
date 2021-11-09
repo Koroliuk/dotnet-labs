@@ -21,6 +21,7 @@ namespace Hotel.PL.Controllers.RoomCategory
             try
             {
                 AuthorizeAsAdmin();
+                
                 Console.Write("Enter a category name: ");
                 var name = Console.ReadLine();
                 Console.Write("Enter a price per day: ");
@@ -29,6 +30,7 @@ namespace Hotel.PL.Controllers.RoomCategory
                 var capacityString = Console.ReadLine();
                 Console.Write("Enter a description: "); 
                 var description = Console.ReadLine();
+                
                 if (name != null && !name.Equals(string.Empty) &&
                     pricePerDayString != null && !pricePerDayString.Equals(string.Empty) &&
                     capacityString != null && !capacityString.Equals(string.Empty) && description != null)
@@ -48,7 +50,7 @@ namespace Hotel.PL.Controllers.RoomCategory
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input...1");
+                    Console.WriteLine("Invalid input...");
                 }
             }
             catch (HotelException e)

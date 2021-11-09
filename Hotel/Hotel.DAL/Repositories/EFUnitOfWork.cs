@@ -34,7 +34,7 @@ namespace Hotel.DAL.Repositories
             get { return _roomRepository ??= new RoomRepository(_context); }
         }
 
-        public IRepository<RoomCategory> RoomCategories
+        public IRoomCategoryRepository RoomCategories
         {
             get { return _roomCategoryRepository ??= new RoomCategoryRepository(_context); }
         }

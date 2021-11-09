@@ -10,7 +10,7 @@ namespace Hotel.DAL.Repositories
 {
     namespace Hotel.DAL.Repositories
     {
-        public class RoomCategoryRepository : IRepository<RoomCategory>
+        public class RoomCategoryRepository : IRoomCategoryRepository
         {
             private readonly HotelContext _context;
 
@@ -51,6 +51,11 @@ namespace Hotel.DAL.Repositories
                 {
                     _context.RoomCategories.Remove(roomCategory);
                 }
+            }
+            
+            public RoomCategory FindById(int id)
+            {
+                return _context.RoomCategories.Find(id);
             }
         }
     }
