@@ -16,25 +16,25 @@ namespace Hotel.PL.Controllers
 
         public abstract void Execute();
 
-        protected void Authorize()
+        protected DAL.Entities.User Authorize()
         {
             Console.Write("Enter a login: ");
             var login = Console.ReadLine();
             Console.Write("Enter a password: ");
             var password = Console.ReadLine();
-            if (login != null && !login.Equals(string.Empty) &&
-                password != null && !password.Equals(string.Empty))
-            {
-                var user = _userService.FindByLogin(login);
-                if (user == null)
-                {
-                    throw new HotelException("Invalid credentials");
-                }
-            }
-            else
+
+            if (login == null || login.Equals(string.Empty) || password == null || password.Equals(string.Empty))
             {
                 throw new HotelException("Invalid credentials");
             }
+
+            var user = _userService.FindByLogin(login);
+            if (user == null)
+            {
+                throw new HotelException("Invalid credentials");
+            }
+
+            return user;
         }
 
         protected void AuthorizeAsAdmin()

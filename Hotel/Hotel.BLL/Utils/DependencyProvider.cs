@@ -18,6 +18,7 @@ namespace Hotel.BLL.Utils
             container.AddSingleton<IUserService, UserService>();
             container.AddSingleton<IRoomCategoryService, RoomCategoryService>();
             container.AddSingleton<IRoomService, RoomService>();
+            container.AddSingleton<IOrderService, OrderService>();
 
             _provider = container.BuildServiceProvider();
         }

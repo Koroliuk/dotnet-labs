@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.DAL.Repositories
 {
-    public class OrderRepository : IRepository<Order>
+    public class OrderRepository : IOrderRepository
     {
         private readonly HotelContext _context;
 
@@ -49,6 +49,11 @@ namespace Hotel.DAL.Repositories
             {
                 _context.Orders.Remove(order);
             }
+        }
+
+        public Order FindById(int id)
+        {
+            return _context.Orders.Find(id);
         }
     }
 }

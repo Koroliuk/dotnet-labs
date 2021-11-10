@@ -24,7 +24,7 @@ namespace Hotel.DAL.Repositories
             get { return _userRepository ??= new UserRepository(_context); }
         }
 
-        public IRepository<Order> Orders
+        public IOrderRepository Orders
         {
             get { return _orderRepository ??= new OrderRepository(_context); }
         }

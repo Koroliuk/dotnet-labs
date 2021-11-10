@@ -6,7 +6,7 @@ namespace Hotel.DAL.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IUserRepository Users { get; }
-        IRepository<Order> Orders { get; }
+        IOrderRepository Orders { get; }
         IRoomRepository Rooms { get; }
         IRoomCategoryRepository RoomCategories { get; }
         void Save();

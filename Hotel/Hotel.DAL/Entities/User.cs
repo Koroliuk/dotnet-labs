@@ -10,9 +10,6 @@ namespace Hotel.DAL.Entities
         public string PasswordHash { get; set; }
 
         public UserRole Role { get; set; }
-
-        #nullable enable
-        public ICollection<Order>? Orders { get; set; }
     }
     
     public enum UserRole
