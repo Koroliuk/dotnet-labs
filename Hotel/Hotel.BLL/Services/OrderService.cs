@@ -114,6 +114,11 @@ namespace Hotel.BLL.Services
 
         public IEnumerable<Room> GetFreeRooms(DateTime startDate, DateTime endDate)
         {
+            if (startDate <= DateTime.Now || startDate > endDate)
+            {
+                throw new HotelException("Invalid input");
+            }
+
             var occupiedRooms = _unitOfWork.Orders.Find(o => o.Start >= startDate && o.End <= endDate)
                 .Select(o => o.Room)
                 .Distinct();
