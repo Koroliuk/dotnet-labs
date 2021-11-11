@@ -17,6 +17,12 @@ namespace Hotel.BLL.Services
 
         public void SignUp(UserDto userDto)
         {
+            if (userDto.Login == null || userDto.Login.Equals(string.Empty) ||
+                userDto.PasswordHash == null || userDto.PasswordHash.Equals(string.Empty) ||
+                userDto.Role == null || userDto.Role.Equals(string.Empty))
+            {
+                throw new HotelException("Invalid input");
+            }
             if (userDto.Role is not ("Admin" or "User"))
             {
                 throw new HotelException("Invalid user role");

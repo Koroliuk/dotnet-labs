@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Hotel.BLL.interfaces;
+using Hotel.BLL.Validation;
 using Hotel.DAL.Entities;
 using Hotel.DAL.Interfaces;
 
@@ -16,9 +17,27 @@ namespace Hotel.BLL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void BookRoom(Room room, User user, DateTime startDate, DateTime endDate)
+        public void BookRoomById(int roomId, User user, DateTime startDate, DateTime endDate)
         {
-            var order = new Order()
+            if (startDate <= DateTime.Now || startDate > endDate)
+            {
+                throw new HotelException("Invalid input");
+            }
+
+            var room = _unitOfWork.Rooms.FindById(roomId);
+            if (room == null)
+            {
+                throw new HotelException("There is no a such room");
+            }
+
+            var freeRooms = GetFreeRooms(startDate, endDate);
+
+            if (!freeRooms.Contains(room))
+            {
+                throw new HotelException("A such room is not available at this range of time");
+            }
+
+            var order = new Order
             {
                 Start = startDate,
                 End = endDate,
@@ -31,9 +50,27 @@ namespace Hotel.BLL.Services
             _unitOfWork.Save();
         }
 
-        public void RentRoom(Room room, User user, DateTime startDate, DateTime endDate)
+        public decimal RentRoomById(int roomId, User user, DateTime startDate, DateTime endDate)
         {
-            var order = new Order()
+            if (startDate <= DateTime.Now || startDate > endDate)
+            {
+                throw new HotelException("Invalid input");
+            }
+
+            var room = _unitOfWork.Rooms.FindById(roomId);
+            if (room == null)
+            {
+                throw new HotelException("There is no a such room");
+            }
+
+            var freeRooms = GetFreeRooms(startDate, endDate);
+
+            if (!freeRooms.Contains(room))
+            {
+                throw new HotelException("A such room is not available at this range of time");
+            }
+
+            var order = new Order
             {
                 Start = startDate,
                 End = endDate,
@@ -44,14 +81,35 @@ namespace Hotel.BLL.Services
 
             _unitOfWork.Orders.Create(order);
             _unitOfWork.Save();
+            
+            if (order.Room.RoomCategory != null)
+            {
+                return order.End.Subtract(order.Start).Days * order.Room.RoomCategory.PricePerDay;
+            }
+
+            return default;
         }
 
-        public void TransformFromBookedToRented(Order order)
+        public decimal TransformFromBookedToRentedById(int id)
         {
+            var order = FindById(id);
+
+            if (order == null)
+            {
+                throw new HotelException("There is no such order");
+            }
+
             order.Type = OrderType.Paid;
-            
+
             _unitOfWork.Orders.Update(order);
             _unitOfWork.Save();
+
+            if (order.Room.RoomCategory != null)
+            {
+                return order.End.Subtract(order.Start).Days * order.Room.RoomCategory.PricePerDay;
+            }
+
+            return default;
         }
 
         public IEnumerable<Room> GetFreeRooms(DateTime startDate, DateTime endDate)

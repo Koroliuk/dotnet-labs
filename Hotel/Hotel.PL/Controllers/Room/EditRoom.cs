@@ -22,17 +22,11 @@ namespace Hotel.PL.Controllers.Room
                 
                 Console.Write("Enter a room Id to edit: ");
                 var roomId = Convert.ToInt32(Console.ReadLine());
-
-                var isRoomExists = _roomService.IsExistById(roomId);
-                if (!isRoomExists)
-                {
-                    throw new HotelException("There is no room room with id = " + roomId);
-                }
-
+                
                 Console.Write("Enter a new categoryId for room: ");
                 var categoryId = Convert.ToInt32(Console.ReadLine());
 
-                var roomDto = new RoomDto() {CategoryId = categoryId};
+                var roomDto = new RoomDto {CategoryId = categoryId};
 
                 _roomService.Update(roomId, roomDto);
             }

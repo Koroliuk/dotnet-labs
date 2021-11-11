@@ -36,28 +36,19 @@ namespace Hotel.PL.Controllers.RoomCategory
                 var capacityString = Console.ReadLine();
                 Console.Write("Enter a new description: ");
                 var description = Console.ReadLine();
+                
+                var pricePerDay = Convert.ToDecimal(pricePerDayString);
+                var capacity = Convert.ToInt32(capacityString);
 
-                if (name != null && !name.Equals(string.Empty) &&
-                    pricePerDayString != null && !pricePerDayString.Equals(string.Empty) &&
-                    capacityString != null && !capacityString.Equals(string.Empty) && description != null)
+                var roomCategoryDto = new RoomCategoryDto()
                 {
-                    var pricePerDay = Convert.ToDecimal(pricePerDayString);
-                    var capacity = Convert.ToInt32(capacityString);
-
-                    var roomCategoryDto = new RoomCategoryDto()
-                    {
-                        Name = name,
-                        PricePerDay = pricePerDay,
-                        Capacity = capacity,
-                        Description = description
-                    };
-
-                    _roomCategoryService.Update(categoryId, roomCategoryDto);
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
+                    Name = name,
+                    PricePerDay = pricePerDay,
+                    Capacity = capacity,
+                    Description = description
+                };
+                
+                _roomCategoryService.Update(categoryId, roomCategoryDto);
             }
             catch (HotelException e)
             {

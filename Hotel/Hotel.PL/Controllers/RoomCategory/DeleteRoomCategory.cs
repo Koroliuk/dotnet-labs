@@ -22,13 +22,7 @@ namespace Hotel.PL.Controllers.RoomCategory
                 AuthorizeAsAdmin();
                 Console.Write("Enter a category Id to delete: ");
                 var categoryId = Convert.ToInt32(Console.ReadLine());
-
-                var isCategoryExists = _roomCategoryService.IsExistById(categoryId);
-                if (!isCategoryExists)
-                {
-                    throw new HotelException("There is no room category with id = " + categoryId);
-                }
-
+                
                 _roomCategoryService.DeleteById(categoryId);
             }
             catch (HotelException e)

@@ -1,5 +1,6 @@
 using Hotel.BLL.DTO;
 using Hotel.BLL.interfaces;
+using Hotel.BLL.Validation;
 using Hotel.DAL.Entities;
 using Hotel.DAL.Interfaces;
 
@@ -16,6 +17,13 @@ namespace Hotel.BLL.Services
 
         public void Create(RoomCategoryDto roomCategoryDto)
         {
+            if (roomCategoryDto.Name == null || roomCategoryDto.Name.Equals(string.Empty) ||
+                roomCategoryDto.Description == null || roomCategoryDto.Capacity == 0 ||
+                roomCategoryDto.PricePerDay == 0)
+            {
+                throw new HotelException("Invalid input");
+            }
+            
             var roomCategory = new RoomCategory
             {
                 Name = roomCategoryDto.Name,
@@ -40,6 +48,13 @@ namespace Hotel.BLL.Services
 
         public void Update(int categoryId, RoomCategoryDto roomCategoryDto)
         {
+            if (roomCategoryDto.Name == null || roomCategoryDto.Name.Equals(string.Empty) ||
+                roomCategoryDto.Description == null || roomCategoryDto.Capacity == 0 ||
+                roomCategoryDto.PricePerDay == 0)
+            {
+                throw new HotelException("Invalid input");
+            }
+            
             var roomCategory = FindById(categoryId);
             roomCategory.Name = roomCategoryDto.Name;
             roomCategory.PricePerDay = roomCategoryDto.PricePerDay;
@@ -52,6 +67,11 @@ namespace Hotel.BLL.Services
 
         public void DeleteById(int id)
         {
+            var isCategoryExists = IsExistById(id);
+            if (!isCategoryExists)
+            {
+                throw new HotelException("There is no room category with id = " + id);
+            }
             _unitOfWork.RoomCategories.Delete(id);
             _unitOfWork.Save();
         }

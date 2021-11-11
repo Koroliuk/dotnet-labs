@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using System.Linq;
 using Hotel.BLL.interfaces;
 using Hotel.BLL.Validation;
 
@@ -8,12 +7,11 @@ namespace Hotel.PL.Controllers.Order
 {
     public class BookRoom : Command
     {
-        private readonly IRoomService _roomService;
         private readonly IOrderService _orderService;
-        
-        public BookRoom(IUserService userService, IRoomService roomService, IOrderService orderService) : base(userService)
+
+        public BookRoom(IUserService userService, IOrderService orderService) : base(
+            userService)
         {
-            _roomService = roomService;
             _orderService = orderService;
         }
 
@@ -35,38 +33,22 @@ namespace Hotel.PL.Controllers.Order
                 Console.Write("Enter an room number(Id): ");
                 var stringRoomId = Console.ReadLine();
 
-                if (stringStartDate != null && !stringStartDate.Equals(string.Empty) && stringEndDate != null &&
-                    !stringEndDate.Equals(string.Empty) && stringRoomId != null && !stringRoomId.Equals(string.Empty))
-                {
-                    var roomId = Convert.ToInt32(stringRoomId);
-                    var room = _roomService.FindById(roomId);
-                    if (room == null)
-                    {
-                        throw new HotelException("There is no a such room");
-                    }
+                var roomId = Convert.ToInt32(stringRoomId);
 
-                    var startDate = DateTime.ParseExact(stringStartDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                    var endDate = DateTime.ParseExact(stringEndDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                var startDate = DateTime.ParseExact(stringStartDate ?? throw new HotelException("Invalid input"),
+                    "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                var endDate = DateTime.ParseExact(stringEndDate ?? throw new InvalidOperationException("Invalid input"),
+                    "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-                    var freeRooms = _orderService.GetFreeRooms(startDate, endDate);
-
-                    if (freeRooms.Contains(room))
-                    {
-                        _orderService.BookRoom(room, currUser, startDate, endDate);
-                    }
-                    else
-                    {
-                        throw new HotelException("A such room is not available at this range of time");
-                    }
-                }
-                else
-                {
-                    throw new HotelException("Invalid input...");
-                }
+                _orderService.BookRoomById(roomId, currUser, startDate, endDate);
             }
             catch (HotelException e)
             {
                 Console.WriteLine(e.Message);
+            }
+            catch
+            {
+                Console.WriteLine("Invalid input");
             }
         }
     }

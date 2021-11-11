@@ -24,7 +24,7 @@ namespace Hotel.BLL.Services
                 throw new HotelException("Room category with id = " + roomDto.CategoryId + " was not found");
             }
 
-            var room = new Room() {RoomCategory = roomCategory};
+            var room = new Room {RoomCategory = roomCategory};
 
             _unitOfWork.Rooms.Create(room);
             _unitOfWork.Save();
@@ -42,6 +42,12 @@ namespace Hotel.BLL.Services
 
         public void Update(int roomId, RoomDto roomDto)
         {
+            var isRoomExists = IsExistById(roomId);
+            if (!isRoomExists)
+            {
+                throw new HotelException("There is no room room with id = " + roomId);
+            }
+            
             var roomCategory = _unitOfWork.RoomCategories.FindById(roomDto.CategoryId);
 
             if (roomCategory == null)
@@ -58,6 +64,12 @@ namespace Hotel.BLL.Services
 
         public void DeleteById(int id)
         {
+            var isRoomExists = IsExistById(id);
+            if (!isRoomExists)
+            {
+                throw new HotelException("There is no room room with id = " + id);
+            }
+            
             _unitOfWork.Rooms.Delete(id);
             _unitOfWork.Save();
         }

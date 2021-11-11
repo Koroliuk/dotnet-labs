@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using Hotel.BLL.interfaces;
 using Hotel.BLL.Utils;
+using Hotel.PL.Controllers.Account;
 using Hotel.PL.Controllers.Order;
 using Hotel.PL.Controllers.Room;
 using Hotel.PL.Controllers.RoomCategory;
-using Hotel.PL.Controllers.User;
 
 namespace Hotel.PL.Controllers
 {
@@ -62,8 +62,8 @@ namespace Hotel.PL.Controllers
                 {"create room", new CreateRoom(UserService, RoomService)},
                 {"edit room", new EditRoom(UserService, RoomService)},
                 {"delete room", new DeleteRoom(UserService, RoomService)},
-                {"book room", new BookRoom(UserService, RoomService, OrderService)},
-                {"rent room", new RentRoom(UserService, RoomService, OrderService)},
+                {"book room", new BookRoom(UserService, OrderService)},
+                {"rent room", new RentRoom(UserService, OrderService)},
                 {"transform state room", new TransformStateOfRoom(UserService, OrderService)},
                 {"show rooms", new ShowRooms(UserService, OrderService)}
             };

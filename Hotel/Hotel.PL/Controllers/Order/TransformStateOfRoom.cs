@@ -20,38 +20,29 @@ namespace Hotel.PL.Controllers.Order
         {
             try
             {
-                var currUser = Authorize();
-
-                if (currUser == null)
-                {
-                    throw new HotelException("You need to be authorized for that operation");
-                }
+                Authorize();
 
                 Console.Write("Enter an id of order to transform: ");
                 var stringOrderId = Console.ReadLine();
 
-                if (stringOrderId != null && !stringOrderId.Equals(string.Empty))
-                {
-                    var orderId = Convert.ToInt32(stringOrderId);
-                    var isOrderExists = _orderService.IsExistsById(orderId);
-                    if (!isOrderExists)
-                    {
-                        throw new HotelException("There is no a such room");
-                    }
 
-                    var order = _orderService.FindById(orderId);
-                    _orderService.TransformFromBookedToRented(order);
-                    var totalPrice = order.End.Subtract(order.Start).Days * order.Room.RoomCategory.PricePerDay;
-                    Console.WriteLine("Total price is " + totalPrice);
-                }
-                else
+                var orderId = Convert.ToInt32(stringOrderId);
+                var isOrderExists = _orderService.IsExistsById(orderId);
+                if (!isOrderExists)
                 {
-                    throw new HotelException("Invalid input...");
+                    throw new HotelException("There is no a such room");
                 }
+
+                var totalPrice = _orderService.TransformFromBookedToRentedById(orderId);
+                Console.WriteLine("Total price is " + totalPrice);
             }
             catch (HotelException e)
             {
                 Console.WriteLine(e.Message);
+            }
+            catch
+            {
+                Console.WriteLine("Invalid input");
             }
         }
     }

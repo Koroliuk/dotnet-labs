@@ -22,13 +22,7 @@ namespace Hotel.PL.Controllers.Room
 
                 Console.Write("Enter a room Id to delete: ");
                 var roomId = Convert.ToInt32(Console.ReadLine());
-
-                var isRoomExists = _roomService.IsExistById(roomId);
-                if (!isRoomExists)
-                {
-                    throw new HotelException("There is no room room with id = " + roomId);
-                }
-
+                
                 _roomService.DeleteById(roomId);
             }
             catch (HotelException e)

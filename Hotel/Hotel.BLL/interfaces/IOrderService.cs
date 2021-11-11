@@ -7,10 +7,10 @@ namespace Hotel.BLL.interfaces
 {
     public interface IOrderService
     {
-        void BookRoom(Room room, User user, DateTime startDate, DateTime endDate);
-        void RentRoom(Room room, User user, DateTime startDate, DateTime endDate);
+        void BookRoomById(int roomId, User user, DateTime startDate, DateTime endDate);
+        decimal RentRoomById(int roomId, User user, DateTime startDate, DateTime endDate);
 
-        void TransformFromBookedToRented(Order order);
+        decimal TransformFromBookedToRentedById(int orderId);
         IEnumerable<Room> GetFreeRooms(DateTime startDate, DateTime endDate);
         Order FindById(int id);
         bool IsExistsById(int id);

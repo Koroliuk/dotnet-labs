@@ -16,7 +16,7 @@ namespace Hotel.PL.Controllers
 
         public abstract void Execute();
 
-        protected DAL.Entities.User Authorize()
+        protected User Authorize()
         {
             Console.Write("Enter a login: ");
             var login = Console.ReadLine();

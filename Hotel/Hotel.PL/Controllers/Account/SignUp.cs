@@ -3,7 +3,7 @@ using Hotel.BLL.DTO;
 using Hotel.BLL.interfaces;
 using Hotel.BLL.Validation;
 
-namespace Hotel.PL.Controllers.User
+namespace Hotel.PL.Controllers.Account
 {
     public class SignUp : Command
     {
@@ -22,31 +22,22 @@ namespace Hotel.PL.Controllers.User
             var password = Console.ReadLine();
             Console.Write("Enter an user role (User or Admin): ");
             var role = Console.ReadLine();
-
-            if (login != null && !login.Equals(string.Empty) &&
-                password != null && !password.Equals(string.Empty) &&
-                role != null && !role.Equals(string.Empty))
+            
+            var userDto = new UserDto
             {
-                var userDto = new UserDto
-                {
-                    Login = login,
-                    PasswordHash = password,
-                    Role = role
-                };
+                Login = login,
+                PasswordHash = password,
+                Role = role
+            };
 
-                try
-                {
-                    _userService.SignUp(userDto);
-                    Console.WriteLine("User was successful registered!");
-                }
-                catch (HotelException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+            try
+            {
+                _userService.SignUp(userDto);
+                Console.WriteLine("User was successful registered!");
             }
-            else
+            catch (HotelException e)
             {
-                Console.WriteLine("Invalid input...");
+                Console.WriteLine(e.Message);
             }
         }
     }

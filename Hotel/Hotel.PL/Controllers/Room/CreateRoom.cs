@@ -23,7 +23,7 @@ namespace Hotel.PL.Controllers.Room
                 Console.Write("Enter a categoryId for room: ");
                 var categoryId = Convert.ToInt32(Console.ReadLine());
 
-                var roomDto = new RoomDto() {CategoryId = categoryId};
+                var roomDto = new RoomDto {CategoryId = categoryId};
 
                 _roomService.Create(roomDto);
             }
