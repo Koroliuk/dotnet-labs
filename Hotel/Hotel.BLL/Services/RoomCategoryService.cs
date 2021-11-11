@@ -18,8 +18,8 @@ namespace Hotel.BLL.Services
         public void Create(RoomCategoryDto roomCategoryDto)
         {
             if (roomCategoryDto.Name == null || roomCategoryDto.Name.Equals(string.Empty) ||
-                roomCategoryDto.Description == null || roomCategoryDto.Capacity == 0 ||
-                roomCategoryDto.PricePerDay == 0)
+                roomCategoryDto.Description == null || roomCategoryDto.Capacity <= 0 ||
+                roomCategoryDto.PricePerDay <= 0)
             {
                 throw new HotelException("Invalid input");
             }
